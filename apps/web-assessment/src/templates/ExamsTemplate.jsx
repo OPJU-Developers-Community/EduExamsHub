@@ -9,7 +9,7 @@ const ExamsTemplate = () => {
   const pathname = usePathname();
 
   return (
-    <div className="pt-6 md:px-10">
+    <>
       {/* header */}
       <div className="flex justify-between">
         <h2 className="text-2xl font-semibold">Exams</h2>
@@ -22,7 +22,7 @@ const ExamsTemplate = () => {
       </div>
       {/* list of exams */}
       <div></div>
-    </div>
+    </>
   );
 };
 

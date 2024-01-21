@@ -18,7 +18,7 @@ export default function DefaultTemplate({ children }) {
         >
           <HamburgerMenuIcon className="text-gray-600 h-5 w-5" />
         </Button>
-        {children}
+        <div className="pt-5 px-2 md:px-10">{children}</div>
       </section>
     </main>
   );
