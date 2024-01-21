@@ -1,5 +1,7 @@
+import ExamsTemplate from "@/templates/ExamsTemplate";
+
 const Exams = () => {
-  return <p>exams</p>;
+  return <ExamsTemplate />;
 };
 
 export default Exams;
