@@ -1,6 +1,6 @@
 import SideNav from "@/components/SideNav";
 
-export default function Layout({ children }) {
+export default function DefaultTemplate({ children }) {
   return (
     <main className="h-screen flex">
       <SideNav />
