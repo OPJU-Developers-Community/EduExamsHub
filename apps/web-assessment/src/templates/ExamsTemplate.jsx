@@ -16,7 +16,7 @@ const ExamsTemplate = () => {
           className="capitalize bg-indigo-600 text-gray-50 font-medium hover:bg-indigo-700"
           asChild
         >
-          <Link href={`${router.pathname}/create-exam`}>create new exam</Link>
+          <Link href="/exam-manager/new">create new exam</Link>
         </Button>
       </div>
       {/* list of exams */}
