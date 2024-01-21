@@ -11,7 +11,7 @@ export const sideNavLinks = [
   {
     label: "Dashboard",
     icon: <IconBuddyDashboardIcon />,
-    source: "/",
+    source: "/dashboard",
   },
   {
     label: "Exams",
