@@ -38,17 +38,20 @@ const SideNav = (props) => {
             {sideNavLinks.map((item, i) => {
               const { label, icon, source } = item;
               return (
-                <Link href={source} key={`${label}-${i}`}>
-                  <Button
-                    variant={
-                      router.pathname.includes(source) ? "default" : "ghost"
-                    }
-                    className="w-full flex items-center justify-start my-1"
-                  >
+                <Button
+                  key={`${label}-${i}`}
+                  variant={
+                    router.pathname.includes(source) ? "default" : "ghost"
+                  }
+                  className="w-full flex items-center justify-start my-1"
+                  onClick={() => setIsNavShow((prev) => !prev)}
+                  asChild
+                >
+                  <Link href={source}>
                     {icon}
                     <span className="capitalize">{label}</span>
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               );
             })}
           </div>
@@ -57,15 +60,18 @@ const SideNav = (props) => {
             {sideNavLinksLearn.map((item, i) => {
               const { label, icon, source } = item;
               return (
-                <Link href={source} key={`${label}-${i}`}>
-                  <Button
-                    variant={router.pathname === source ? "secondary" : "ghost"}
-                    className="w-full justify-start my-1"
-                  >
+                <Button
+                  key={`${label}-${i}`}
+                  variant={router.pathname === source ? "secondary" : "ghost"}
+                  className="w-full justify-start my-1"
+                  onClick={() => setIsNavShow((prev) => !prev)}
+                  asChild
+                >
+                  <Link href={source} className="flex items-center">
                     {icon}
                     <span className="capitalize">{label}</span>
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               );
             })}
           </div>
