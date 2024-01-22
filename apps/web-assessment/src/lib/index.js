@@ -42,3 +42,28 @@ export const sideNavLinksLearn = [
     source: "/analytics",
   },
 ];
+
+export const createNewExamField = [
+  {
+    label: "course code",
+    placeholder: "Example: SOE-B-CSE-203",
+  },
+  {
+    label: "course",
+    placeholder: "B.tech",
+  },
+  {
+    label: "semester",
+    placeholder: "Semester",
+    type: "number",
+  },
+  {
+    label: "subject",
+    placeholder: "Operating system",
+  },
+  {
+    label: "max marks",
+    placeholder: "Enter exam total mark",
+    type: "number",
+  },
+];
