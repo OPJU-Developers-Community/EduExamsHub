@@ -40,11 +40,8 @@ const SideNav = (props) => {
               return (
                 <Button
                   key={`${label}-${i}`}
-                  variant={
-                    router.pathname.includes(source) ? "default" : "ghost"
-                  }
+                  variant={router.pathname === source ? "default" : "ghost"}
                   className="w-full flex items-center justify-start my-1"
-                  onClick={() => setIsNavShow((prev) => !prev)}
                   asChild
                 >
                   <Link href={source}>
@@ -64,7 +61,6 @@ const SideNav = (props) => {
                   key={`${label}-${i}`}
                   variant={router.pathname === source ? "secondary" : "ghost"}
                   className="w-full justify-start my-1"
-                  onClick={() => setIsNavShow((prev) => !prev)}
                   asChild
                 >
                   <Link href={source} className="flex items-center">
