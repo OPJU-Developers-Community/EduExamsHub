@@ -12,10 +12,12 @@ export default function DefaultTemplate({ children }) {
   const [isNavShow, setIsNavShow] = useState(false);
 
   return (
-    <main className={`h-screen flex ${inter.className}`}>
-      <SideNav isNavShow={isNavShow} setIsNavShow={setIsNavShow} />
+    <main className={`h-full relative flex ${inter.className}`}>
+      <div className="sticky top-0 h-screen z-10">
+        <SideNav isNavShow={isNavShow} setIsNavShow={setIsNavShow} />
+      </div>
       <section className="h-full w-full">
-        <div className="h-[50px] w-full flex items-center px-2 bg-gray-50 border-b border-gray-300">
+        <div className="h-[50px] w-full flex items-center px-2 bg-gray-50 border-b border-gray-300 sticky top-0">
           <Button
             variant="ghost"
             className="px-2 bg-transparent focus:bg-gray-100 rounded-full md:hidden"

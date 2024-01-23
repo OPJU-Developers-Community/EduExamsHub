@@ -16,8 +16,8 @@ const SideNav = (props) => {
   return (
     <div
       className={cn(
-        "pb-12, h-full max-w-[240px] bg-gray-50 border-r border-gray-300 md:inline-block",
-        `${isNavShow ? "absolute top-0 left-0" : "hidden"}`
+        "pb-12 h-full max-w-[280px] bg-gray-50 border-r border-gray-300 md:inline-block",
+        `${isNavShow ? "absolute top-0 left-0 w-[70vw]" : "hidden"}`
       )}
     >
       <div className="space-y-4 px-3 py-6 h-[90vh] flex flex-col justify-between">
