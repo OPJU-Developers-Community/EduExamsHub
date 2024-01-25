@@ -1,5 +1,5 @@
 const express = require("express");
-const question = require("../controllers/assessment/question.js");
+const question = require("../../controllers/assessment/question.controller.js");
 
 const router = express.Router();
 
