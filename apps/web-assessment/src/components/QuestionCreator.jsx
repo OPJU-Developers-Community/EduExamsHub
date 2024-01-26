@@ -26,8 +26,8 @@ import { Checkbox } from "./ui/checkbox";
 const schema = yup.object({
   questionTitle: yup.string().required("Please add a question"),
   questionType: yup.string().required("Please select a question type"),
-  correctAnswers: yup.array().min(1, "Please select a correct answer"),
-  description: yup.string(),
+  // correctAnswers: yup.array().min(1, "Please select a correct answer"),
+  // description: yup.string(),
   options: yup.array().min(2, "Please add two or more options"),
 });
 
@@ -37,8 +37,8 @@ const QuestionCreator = () => {
     defaultValues: {
       questionTitle: "",
       questionType: "single-select-mcq",
-      correctAnswers: [],
-      description: null,
+      // correctAnswers: [],
+      // description: null,
       options: [],
     },
   });
@@ -52,7 +52,31 @@ const QuestionCreator = () => {
     console.log(data);
   };
 
-  const handleOptionOnChecked = (checkedId, checked) => {};
+  const handleOptionOnChecked = (id, checked) => {
+    const currentType = form.getValues("questionType");
+
+    if (currentType === "single-select-mcq") {
+      form.setValue(
+        "options",
+        form.getValues("options").map((option) => ({
+          ...option,
+          isChecked: option.id === id,
+        }))
+      );
+    } else if (currentType === "multi-select-mcq") {
+      form.setValue(
+        "options",
+        form.getValues("options").map((option) => {
+          if (option.id === id) {
+            return {
+              ...option,
+              isChecked: checked,
+            };
+          } else return option;
+        })
+      );
+    }
+  };
 
   const handleAddOption = () => {
     append({
@@ -141,7 +165,7 @@ const QuestionCreator = () => {
                           <Checkbox
                             checked={field.isChecked}
                             onCheckedChange={(checked) => {
-                              handleOptionOnChecked(field.id, checked);
+                              handleOptionOnChecked(i + 1, checked);
                             }}
                           />
                         </FormControl>
