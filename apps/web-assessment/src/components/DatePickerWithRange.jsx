@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import { CalendarIcon } from "@radix-ui/react-icons";
-import { addDays, format } from "date-fns";
+import { format } from "date-fns";
 
 import { cn } from "@/lib/utils";
 
@@ -10,8 +10,6 @@ import { Button } from "./ui/button";
 import { Calendar } from "./ui/calendar";
 
 export function DatePickerWithRange({ className, date, setDate }) {
-  console.log(format(new Date(date.from), "dd/MM/yyyy"));
-
   return (
     <div className={cn("grid gap-2", className)}>
       <p className="text-sm font-medium">Exam Date</p>
