@@ -1,15 +1,21 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { useEffect } from "react";
 import Link from "next/link";
+import { useDispatch } from "react-redux";
 
 // components
 import { Button } from "@/components/ui/button";
+import ExamList from "@/components/ExamList";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getAllExams } from "@/redux/slices/exams.slice";
+import { useSelector } from "react-redux";
 
 const ExamsTemplate = () => {
-  const router = useRouter();
-  const [page, setPage] = useState(1);
+  const dispatch = useDispatch();
+  const { data, status } = useSelector((state) => state.exams);
 
-  useEffect(() => {}, [page]);
+  useEffect(() => {
+    dispatch(getAllExams({ page: 1, limit: 10 }));
+  }, []);
 
   return (
     <>
@@ -23,8 +29,22 @@ const ExamsTemplate = () => {
           <Link href="/exam-manager/new">create new exam</Link>
         </Button>
       </div>
-      {/* list of exams */}
-      <div></div>
+
+      {!data && status === "loading" ? (
+        <div className="flex flex-col items-start gap-4 mb-5 mt-10">
+          {[...new Array(5)].map((_, i) => (
+            <div className="flex items-start w-full" key={i}>
+              <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+              <div className="space-y-2 flex-1 ml-3">
+                <Skeleton className="h-6" />
+                <Skeleton className="h-6" />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <ExamList />
+      )}
     </>
   );
 };
