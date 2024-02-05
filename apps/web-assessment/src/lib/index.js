@@ -47,23 +47,26 @@ export const createNewExamField = [
   {
     label: "course code",
     placeholder: "Example: SOE-B-CSE-203",
+    key: "course_code",
   },
   {
     label: "course",
     placeholder: "B.tech",
+    key: "course",
   },
   {
     label: "semester",
     placeholder: "Semester",
-    type: "number",
+    key: "semester",
   },
   {
     label: "subject",
     placeholder: "Operating system",
+    key: "subject",
   },
   {
     label: "max marks",
     placeholder: "Enter exam total mark",
-    type: "number",
+    key: "max_marks",
   },
 ];
