@@ -7,35 +7,18 @@ const examRepository = new ExamRepository();
 
 async function createNewExam(data) {
   try {
-    const {
-      course_code,
-      course,
-      semester,
-      subject,
-      max_marks,
-      exam_rules,
-      start_date,
-      end_date,
-    } = data;
+    // const {
+    //   course_code,
+    //   course,
+    //   semester,
+    //   subject,
+    //   max_marks,
+    //   exam_rules,
+    //   start_date,
+    //   end_date,
+    // } = data;
 
-    const startDate = new Date(start_date);
-    const endDate = new Date(end_date);
-
-    // console.log(dateFns.formatISO(new Date(), "dd/MM/yyyy - hh:mm aaa"));
-
-    const formattedStartDate = startDate.toISOString().split("T")[0];
-    const formattedEndDate = endDate.toISOString().split("T")[0];
-
-    const newExam = await examRepository.create({
-      course_code,
-      course,
-      semester,
-      subject,
-      max_marks,
-      exam_rules,
-      start_date: formattedStartDate,
-      end_date: formattedEndDate,
-    });
+    const newExam = await examRepository.create(data);
 
     return newExam;
   } catch (error) {
