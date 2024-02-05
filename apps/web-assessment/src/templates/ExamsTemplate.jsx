@@ -1,11 +1,15 @@
-import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 // components
 import { Button } from "@/components/ui/button";
 
 const ExamsTemplate = () => {
   const router = useRouter();
+  const [page, setPage] = useState(1);
+
+  useEffect(() => {}, [page]);
 
   return (
     <>

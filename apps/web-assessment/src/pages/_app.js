@@ -1,15 +1,19 @@
-import "@/styles/globals.css";
+import { Provider } from "react-redux";
 
-import QueryProvider from "@/lib/react-query/QueryProvider";
+import store from "@/redux/store";
 
 import DefaultTemplate from "@/templates/DefaultTemplate";
+import { Toaster } from "@/components/ui/toaster";
+
+import "@/styles/globals.css";
 
 export default function App({ Component, pageProps }) {
   return (
-    <QueryProvider>
+    <Provider store={store}>
       <DefaultTemplate>
         <Component {...pageProps} />
       </DefaultTemplate>
-    </QueryProvider>
+      <Toaster />
+    </Provider>
   );
 }

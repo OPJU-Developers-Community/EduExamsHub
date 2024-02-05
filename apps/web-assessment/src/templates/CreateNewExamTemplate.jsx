@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { addDays, format } from "date-fns";
 
 import { createNewExamField } from "@/lib";
-
-import { useCreateNewExam } from "@/lib/react-query/queries";
 
 import { DatePickerWithRange } from "@/components/DatePickerWithRange";
 import { Label } from "@/components/ui/label";
@@ -13,6 +13,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import LoadingBtn from "@/components/LoadingBtn";
 import { useToast } from "@/components/ui/use-toast";
+
+// thunk and slices
+import { createNewExam, resetState } from "@/redux/slices/examManager.slice";
 
 const CreateNewExamTemplate = () => {
   const { toast } = useToast();
@@ -29,47 +32,42 @@ const CreateNewExamTemplate = () => {
     exam_rules: "",
   });
 
+  const examManagerState = useSelector((state) => state.examManager);
+
   const router = useRouter();
 
-  const {
-    mutate: createNewExam,
-    isPending,
-    isSuccess,
-    isError,
-    error,
-    data: { data: result } = {},
-  } = useCreateNewExam();
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (examManagerState.status === "success") {
       toast({
-        title: result.message,
-        description: `From ${format(date.from, "yyyy-MM-dd")} to ${format(date.to, "yyyy-MM-dd")}`,
-        duration: 1000,
+        title: examManagerState.message,
+        duration: 2000,
       });
+
+      // reset the state so that
+      // it allow user to navigate to this page again
+      dispatch(resetState());
+
       router.push("/exams");
     }
-  }, [isSuccess]);
 
-  useEffect(() => {
-    if (isError) {
+    if (examManagerState.status === "failed") {
       toast({
-        title: error?.response.data.message,
-        duration: 1000,
+        title: examManagerState.message,
+        duration: 2000,
       });
     }
-  }, [isError]);
+  }, [examManagerState.status]);
 
   const handleExamInputs = (e, key) => {
     setNewExam((prev) => ({ ...prev, [key]: e.target.value }));
   };
 
   const handleCreateNewExam = () => {
-    createNewExam({
-      ...newExam,
-      start_date: format(date.from, "yyyy-MM-dd"),
-      end_date: format(date.to, "yyyy-MM-dd"),
-    });
+    dispatch(
+      createNewExam({ ...newExam, start_date: date.from, end_date: date.to })
+    );
   };
 
   return (
@@ -101,7 +99,7 @@ const CreateNewExamTemplate = () => {
             onChange={(e) => handleExamInputs(e, "exam_rules")}
           />
         </div>
-        {isPending ? (
+        {examManagerState.status === "loading" ? (
           <LoadingBtn classname="mt-5">Creating your exam</LoadingBtn>
         ) : (
           <Button

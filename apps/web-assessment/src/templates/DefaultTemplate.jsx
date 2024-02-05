@@ -5,7 +5,6 @@ import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 import SideNav from "@/components/SideNav";
-import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,7 +28,6 @@ export default function DefaultTemplate({ children }) {
         </div>
         <div className="pt-10 px-4 md:px-10">{children}</div>
       </section>
-      <Toaster />
     </main>
   );
 }
