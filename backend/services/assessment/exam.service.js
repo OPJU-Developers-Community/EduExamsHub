@@ -29,6 +29,35 @@ async function createNewExam(data) {
   }
 }
 
+async function getAllExams(page, limit) {
+  try {
+    page = Number(page);
+    limit = Number(limit);
+    /**
+     * page = 1
+     * limit = 10
+     *
+     * then as per the formula
+     * 1 - 1 * 10 = 0
+     *
+     * the list is start from 0
+     *
+     * and .limit(limit) where limit is 10
+     * i.e start from 0 and ending at 10
+     */
+    const skipAmount = (page - 1) * limit;
+
+    const exams = await examRepository.getAllExams(skipAmount, limit);
+    return exams;
+  } catch (error) {
+    throw new AppError(
+      "Something went wrong while fetching exams",
+      httpStatusCodes.SERVER_ERROR
+    );
+  }
+}
+
 module.exports = {
   createNewExam,
+  getAllExams,
 };
