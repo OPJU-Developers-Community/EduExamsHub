@@ -1,46 +1,36 @@
-const examModel = require("../../models/assessment/exam.model");
 const ApiError = require("../../utils/common/error-response");
-const ApiSuccess = require("../../utils/common/success-response")
+const httpStatusCodes = require("../../utils/common/status-codes");
+const ApiSuccess = require("../../utils/common/success-response");
+
+const { validateExamReqBody } = require("../../models/assessment/exam.model");
+const { createNewExam } = require("../../services/assessment/exam.service");
 
 class ExamController {
+  async createNewExam(req, res) {
+    const { value, error } = validateExamReqBody(req.body);
 
-    async createQuestion(req, res) {
+    if (error) {
+      ApiError.error = error;
+      ApiError.message = error.details[0].message;
 
-        try {
-            const {course_code, course, semester, subject, max_marks, exam_rules, questions, start_date, end_date} = req.body;
-
-            const startDate = new Date(start_date);
-            const endDate = new Date(end_date);
-        
-            // Get the current date
-            const formattedStartDate = startDate.toISOString().split('T')[0];
-            const formattedEndDate = endDate.toISOString().split('T')[0];
-
-            const newExam = new examModel({
-                course_code, 
-                course, 
-                semester, 
-                subject,
-                max_marks, 
-                exam_rules,
-                questions,
-                start_date: formattedStartDate,
-                end_date: formattedEndDate,
-            })
-
-            await newExam.save()
-
-            ApiSuccess.message = "Exam created successfully"
-            
-            return res.status(200).json(ApiSuccess)
-
-        } catch (error) {
-            ApiError.error = error
-            return res.status(500).json(ApiError)
-        }
+      return res.status(httpStatusCodes.BAD_REQUEST).json(ApiError);
     }
+
+    try {
+      const response = await createNewExam(value);
+
+      ApiSuccess.message = "Exam created successfully";
+      ApiSuccess.data = [];
+
+      return res.status(httpStatusCodes.CREATED).json(ApiSuccess);
+    } catch (error) {
+      ApiError.error = error;
+      ApiError.message = error.explanation;
+      return res.status(error.statusCode).json(ApiError);
+    }
+  }
 }
 
 const examController = new ExamController();
 
-module.exports = examController
+module.exports = examController;

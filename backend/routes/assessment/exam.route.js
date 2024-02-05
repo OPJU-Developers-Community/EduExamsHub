@@ -3,6 +3,6 @@ const examController = require("../../controllers/assessment/exam.controller");
 
 const router = express.Router();
 
-router.post("/create-new-exam", examController.createQuestion)
+router.post("/create-new-exam", examController.createNewExam);
 
-module.exports = router
+module.exports = router;
